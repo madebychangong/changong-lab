@@ -32,16 +32,16 @@ def analyze():
         mbti = request.form.get('mbti', '').upper()
 
         # 추가 질문 데이터
-        concern = request.form.get('concern', '')  # love, career, money, health, growth
-        status = request.form.get('status', '')    # start, maintain, change, choice
-        prefer_together = request.form.get('prefer_together') == 'true'
-        prefer_spontaneous = request.form.get('prefer_spontaneous') == 'true'
+        concern = request.form.get('concern', '')       # love, career, money, health, growth
+        status = request.form.get('status', '')         # start, maintain, change, choice
+        social_style = request.form.get('social_style', '')   # alone, together, balance
+        work_style = request.form.get('work_style', '')       # planned, spontaneous, flexible
 
         extra_info = {
             'concern': concern,
             'status': status,
-            'prefer_together': prefer_together,
-            'prefer_spontaneous': prefer_spontaneous
+            'social_style': social_style,
+            'work_style': work_style
         }
 
         # 사주 계산

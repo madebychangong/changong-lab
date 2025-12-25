@@ -64,8 +64,8 @@ def create_prompt(result_data):
     extra = result_data.get('extra_info', {})
     concern = extra.get('concern', '')
     status = extra.get('status', '')
-    prefer_together = extra.get('prefer_together', False)
-    prefer_spontaneous = extra.get('prefer_spontaneous', False)
+    social_style_val = extra.get('social_style', '')
+    work_style_val = extra.get('work_style', '')
 
     # 관심사 한글 변환
     concern_map = {
@@ -86,9 +86,21 @@ def create_prompt(result_data):
     }
     status_kr = status_map.get(status, '')
 
-    # 성향 텍스트
-    social_style = "함께하는 것을 좋아함" if prefer_together else "혼자 시간을 선호함"
-    planning_style = "즉흥적인 성향" if prefer_spontaneous else "계획적인 성향"
+    # 사회 성향 텍스트
+    social_map = {
+        'alone': '혼자가 더 편함',
+        'together': '함께가 더 좋음',
+        'balance': '상황에 따라 다름'
+    }
+    social_style = social_map.get(social_style_val, '')
+
+    # 일 스타일 텍스트
+    work_map = {
+        'planned': '계획적인 성향',
+        'spontaneous': '즉흥적인 성향',
+        'flexible': '유연한 성향'
+    }
+    planning_style = work_map.get(work_style_val, '')
 
     prompt = f"""당신은 사주와 MBTI를 결합해 해석하는 전문가입니다.
 아래 분석 데이터를 바탕으로 사용자에게 전달할 메시지를 작성해주세요.

@@ -132,74 +132,48 @@
                     <!-- 관심사 선택 -->
                     <div class="form-group">
                         <label class="form-label">요즘 가장 신경 쓰이는 건?</label>
-                        <div class="chip-group">
-                            <label class="chip-label">
-                                <input type="radio" name="concern" value="love" required>
-                                <span class="chip">연애/인간관계</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="radio" name="concern" value="career">
-                                <span class="chip">진로/취업</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="radio" name="concern" value="money">
-                                <span class="chip">재물/금전운</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="radio" name="concern" value="health">
-                                <span class="chip">건강/컨디션</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="radio" name="concern" value="growth">
-                                <span class="chip">자기계발</span>
-                            </label>
-                        </div>
+                        <select name="concern" required>
+                            <option value="">선택해주세요</option>
+                            <option value="love">💕 연애/인간관계</option>
+                            <option value="career">💼 진로/취업</option>
+                            <option value="money">💰 재물/금전운</option>
+                            <option value="health">🏃 건강/컨디션</option>
+                            <option value="growth">📚 자기계발</option>
+                        </select>
                     </div>
 
                     <!-- 현재 상태 -->
                     <div class="form-group">
                         <label class="form-label">지금 내 상황은?</label>
-                        <div class="chip-group">
-                            <label class="chip-label">
-                                <input type="radio" name="status" value="start" required>
-                                <span class="chip">새로운 시작</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="radio" name="status" value="maintain">
-                                <span class="chip">현재 유지</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="radio" name="status" value="change">
-                                <span class="chip">변화 필요</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="radio" name="status" value="choice">
-                                <span class="chip">선택의 기로</span>
-                            </label>
-                        </div>
+                        <select name="status" required>
+                            <option value="">선택해주세요</option>
+                            <option value="start">🌱 새로운 시작을 앞두고 있어요</option>
+                            <option value="maintain">🏠 현재 상황을 유지하고 싶어요</option>
+                            <option value="change">🔄 변화가 필요하다고 느껴요</option>
+                            <option value="choice">🤔 선택의 기로에 있어요</option>
+                        </select>
                     </div>
 
-                    <!-- 성향 -->
+                    <!-- 성향 1 -->
                     <div class="form-group">
-                        <label class="form-label">나는 어떤 편?</label>
-                        <div class="toggle-group">
-                            <div class="toggle-item">
-                                <span class="toggle-left">혼자가 편해</span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" name="prefer_together" value="true">
-                                    <span class="toggle-slider"></span>
-                                </label>
-                                <span class="toggle-right">함께가 좋아</span>
-                            </div>
-                            <div class="toggle-item">
-                                <span class="toggle-left">계획적</span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" name="prefer_spontaneous" value="true">
-                                    <span class="toggle-slider"></span>
-                                </label>
-                                <span class="toggle-right">즉흥적</span>
-                            </div>
-                        </div>
+                        <label class="form-label">사람들과 함께할 때 나는?</label>
+                        <select name="social_style" required>
+                            <option value="">선택해주세요</option>
+                            <option value="alone">🧘 혼자가 더 편해요</option>
+                            <option value="together">🎉 함께가 더 좋아요</option>
+                            <option value="balance">⚖️ 상황에 따라 달라요</option>
+                        </select>
+                    </div>
+
+                    <!-- 성향 2 -->
+                    <div class="form-group">
+                        <label class="form-label">일을 할 때 나는?</label>
+                        <select name="work_style" required>
+                            <option value="">선택해주세요</option>
+                            <option value="planned">📋 계획적으로 하는 편</option>
+                            <option value="spontaneous">⚡ 즉흥적으로 하는 편</option>
+                            <option value="flexible">🔀 상황 봐서 유연하게</option>
+                        </select>
                     </div>
                 </div>
 
