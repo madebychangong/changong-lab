@@ -4,6 +4,7 @@ korean_lunar_calendar 라이브러리를 활용한 만세력 계산
 """
 
 from korean_lunar_calendar import KoreanLunarCalendar
+from datetime import date
 
 # 천간 (10개)
 CHEONGAN = ['갑', '을', '병', '정', '무', '기', '경', '신', '임', '계']
@@ -88,6 +89,33 @@ def calculate_year_ganji(year):
     return CHEONGAN[index % 10], JIJI[index % 12]
 
 
+def calculate_day_ganji(year, month, day):
+    """일주 간지 계산 (기준일로부터 계산)"""
+    # 1900년 1월 1일은 갑진일 (index 40)
+    base_date = date(1900, 1, 1)
+    target_date = date(year, month, day)
+    diff = (target_date - base_date).days
+    index = (diff + 40) % 60
+    gan = CHEONGAN[index % 10]
+    ji = JIJI[index % 12]
+    return gan, ji
+
+
+def calculate_month_ganji(year, month, year_gan):
+    """월주 간지 계산"""
+    # 월지: 1월=인, 2월=묘, 3월=진...
+    month_ji_list = ['인', '묘', '진', '사', '오', '미', '신', '유', '술', '해', '자', '축']
+    month_ji = month_ji_list[(month - 1) % 12]
+
+    # 월간: 연간에 따라 결정 (갑기년 병인월, 을경년 무인월...)
+    year_gan_idx = CHEONGAN.index(year_gan)
+    base_gan_idx = (year_gan_idx % 5) * 2 + 2  # 인월 천간 시작점
+    month_gan_idx = (base_gan_idx + month - 1) % 10
+    month_gan = CHEONGAN[month_gan_idx]
+
+    return month_gan, month_ji
+
+
 def calculate_saju(year, month, day, hour='', is_lunar=False):
     """
     사주팔자 계산 메인 함수
@@ -110,26 +138,18 @@ def calculate_saju(year, month, day, hour='', is_lunar=False):
         solar_date = calendar.SolarIsoFormat()
         year, month, day = map(int, solar_date.split('-'))
 
-    # 양력 날짜 설정
-    calendar.setSolarDate(year, month, day)
+    # 연주 계산
+    year_gan, year_ji = calculate_year_ganji(year)
+    year_ganji = year_gan + year_ji
 
-    # 간지 가져오기
-    year_ganji = calendar.getGanjiYear()
-    month_ganji = calendar.getGanjiMonth()
-    day_ganji = calendar.getGanjiDay()
+    # 월주 계산
+    month_gan, month_ji = calculate_month_ganji(year, month, year_gan)
+    month_ganji = month_gan + month_ji
 
-    # 연주
-    year_gan = year_ganji[0]
-    year_ji = year_ganji[1]
-
-    # 월주
-    month_gan = month_ganji[0]
-    month_ji = month_ganji[1]
-
-    # 일주 (핵심!)
-    day_gan = day_ganji[0]
-    day_ji = day_ganji[1]
-    ilju = day_gan + day_ji
+    # 일주 계산 (핵심!)
+    day_gan, day_ji = calculate_day_ganji(year, month, day)
+    day_ganji = day_gan + day_ji
+    ilju = day_ganji
 
     # 시주 (선택)
     hour_ji = get_hour_jiji(hour) if hour else None
