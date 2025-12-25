@@ -30,7 +30,20 @@
 
                 <div class="form-group">
                     <label class="form-label">생년월일</label>
-                    <input type="date" name="birthdate" id="birthdate" required class="date-input">
+                    <div class="birth-inputs">
+                        <div class="birth-field">
+                            <input type="number" name="birth_year" id="birth_year" placeholder="1990" min="1900" max="2025" required>
+                            <span class="birth-unit">년</span>
+                        </div>
+                        <div class="birth-field">
+                            <input type="number" name="birth_month" id="birth_month" placeholder="1" min="1" max="12" required>
+                            <span class="birth-unit">월</span>
+                        </div>
+                        <div class="birth-field">
+                            <input type="number" name="birth_day" id="birth_day" placeholder="1" min="1" max="31" required>
+                            <span class="birth-unit">일</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -182,28 +195,6 @@
         // 폼 제출
         const form = document.getElementById('analysisForm');
         form.addEventListener('submit', function(e) {
-            // 생년월일 파싱
-            const birthdate = document.getElementById('birthdate').value;
-            if (birthdate) {
-                const [year, month, day] = birthdate.split('-');
-
-                // hidden fields 추가
-                const addHidden = (name, value) => {
-                    let input = form.querySelector(`input[name="${name}"][type="hidden"]`);
-                    if (!input) {
-                        input = document.createElement('input');
-                        input.type = 'hidden';
-                        input.name = name;
-                        form.appendChild(input);
-                    }
-                    input.value = value;
-                };
-
-                addHidden('birth_year', year);
-                addHidden('birth_month', month);
-                addHidden('birth_day', day);
-            }
-
             // MBTI 체크
             if (!mbtiValue.value) {
                 e.preventDefault();
