@@ -31,17 +31,11 @@ def analyze():
         gender = request.form.get('gender')
         mbti = request.form.get('mbti', '').upper()
 
-        # 추가 질문 데이터
-        concern = request.form.get('concern', '')       # love, career, money, health, growth
-        status = request.form.get('status', '')         # start, maintain, change, choice
-        social_style = request.form.get('social_style', '')   # alone, together, balance
-        work_style = request.form.get('work_style', '')       # planned, spontaneous, flexible
+        # 운세 타입
+        fortune_type = request.form.get('fortune_type', 'overall')  # overall, love, money, career
 
         extra_info = {
-            'concern': concern,
-            'status': status,
-            'social_style': social_style,
-            'work_style': work_style
+            'fortune_type': fortune_type
         }
 
         # 사주 계산

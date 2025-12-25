@@ -60,50 +60,20 @@ def create_prompt(result_data):
     ilju_desc = result_data['saju'].get('ilju_description', '')
     mbti_desc = result_data['mbti_info'].get('description', '')
 
-    # 추가 질문 정보
+    # 운세 타입
     extra = result_data.get('extra_info', {})
-    concern = extra.get('concern', '')
-    status = extra.get('status', '')
-    social_style_val = extra.get('social_style', '')
-    work_style_val = extra.get('work_style', '')
+    fortune_type = extra.get('fortune_type', 'overall')
 
-    # 관심사 한글 변환
-    concern_map = {
-        'love': '연애/인간관계',
-        'career': '진로/취업',
-        'money': '재물/금전운',
-        'health': '건강/컨디션',
-        'growth': '자기계발'
+    # 운세 타입별 프롬프트
+    fortune_prompts = {
+        'overall': '종합적인 성격과 운세',
+        'love': '연애 성향과 인연운',
+        'money': '재물운과 금전 관리 성향',
+        'career': '직업 적성과 진로 방향'
     }
-    concern_kr = concern_map.get(concern, '')
-
-    # 상황 한글 변환
-    status_map = {
-        'start': '새로운 시작을 앞두고 있음',
-        'maintain': '현재 상황 유지 중',
-        'change': '변화가 필요하다고 느낌',
-        'choice': '선택의 기로에 있음'
-    }
-    status_kr = status_map.get(status, '')
-
-    # 사회 성향 텍스트
-    social_map = {
-        'alone': '혼자가 더 편함',
-        'together': '함께가 더 좋음',
-        'balance': '상황에 따라 다름'
-    }
-    social_style = social_map.get(social_style_val, '')
-
-    # 일 스타일 텍스트
-    work_map = {
-        'planned': '계획적인 성향',
-        'spontaneous': '즉흥적인 성향',
-        'flexible': '유연한 성향'
-    }
-    planning_style = work_map.get(work_style_val, '')
+    fortune_focus = fortune_prompts.get(fortune_type, fortune_prompts['overall'])
 
     prompt = f"""당신은 사주와 MBTI를 결합해 해석하는 전문가입니다.
-아래 분석 데이터를 바탕으로 사용자에게 전달할 메시지를 작성해주세요.
 
 [분석 데이터]
 - 일주: {ilju}
@@ -115,30 +85,22 @@ def create_prompt(result_data):
 - 일주 특성: {ilju_desc}
 - MBTI 특성: {mbti_desc}
 
-[사용자 관심사 및 상황]
-- 주요 관심사: {concern_kr}
-- 현재 상황: {status_kr}
-- 사회성향: {social_style}
-- 계획성향: {planning_style}
+[요청 운세: {fortune_focus}]
 
 [작성 지침]
-1. 친근하고 재미있는 말투 (MZ세대 타겟, ㅋㅋ, ㄹㅇ 등 적절히 사용)
-2. 긍정적이면서도 현실적인 조언
-3. 과하게 길지 않게 (각 항목 1-2문장)
-4. concern_advice는 반드시 "{concern_kr}" 관련 구체적 조언으로 작성
+1. 친근한 말투로 작성 (MZ세대 타겟)
+2. "{fortune_focus}"에 집중해서 분석
+3. 각 항목 1-2문장으로 간결하게
 
 [출력 형식 - JSON으로만 응답]
 {{
-    "greeting": "첫인사 (예: 오, 꽤 독특한 조합이네요!)",
-    "core_message": "핵심 성격 한줄 요약",
-    "strength_tip": "강점 활용 팁",
-    "weakness_tip": "약점 보완 조언",
-    "concern_advice": "{concern_kr}에 대한 맞춤 조언 (2-3문장)",
-    "today_message": "오늘의 한마디 (운세 스타일)",
-    "emoji": "이 유형을 나타내는 이모지 1개"
+    "core_message": "{fortune_focus}에 대한 핵심 분석 (2-3문장)",
+    "strength_tip": "이 운세에서의 강점이나 조언",
+    "weakness_tip": "주의할 점이나 보완할 부분",
+    "today_message": "오늘의 한마디"
 }}
 
-JSON만 출력하고 다른 텍스트는 포함하지 마세요."""
+JSON만 출력하세요."""
 
     return prompt
 
@@ -199,90 +161,46 @@ def add_default_styling(result_data):
 
 
 def get_fallback_content(result_data):
-    """AI 실패 시 폴백 콘텐츠 - MZ감성 버전"""
+    """AI 실패 시 폴백 콘텐츠"""
 
     ilju = result_data.get('ilju', '')
     mbti = result_data.get('mbti', '')
     extra = result_data.get('extra_info', {})
-    concern = extra.get('concern', 'growth')
-
-    # 다양한 인사말 풀 (MZ감성)
-    greetings = [
-        f"오 대박... {ilju}에 {mbti}라니 🤯",
-        f"잠깐, 이 조합 실화...? ㄹㅇ 특이하네요",
-        f"헐 {mbti}인데 {ilju}일주...? 흥미롭다 흥미로워",
-        f"와 이거 꽤 레어한 조합인데요?",
-        f"음... 뭔가 있어 보이는 조합이에요 ㅎㅎ"
-    ]
-
-    # 오늘의 메시지 풀 (운세 스타일 + MZ)
-    today_messages = [
-        "오늘은 일단 저지르세요. 결과는 나중에 생각해도 됨 ㅋㅋ",
-        "누가 뭐래도 오늘 하루는 내가 주인공임",
-        "작은 거라도 하나 이루면 그걸로 성공한 하루예요",
-        "오늘 만나는 사람 중에 인연이 있을지도...?",
-        "그냥 맛있는 거 먹어요. 그게 답임",
-        "평소에 못 했던 말, 오늘은 해도 될 듯",
-        "sns 좀 쉬고 나한테 집중하는 하루 어때요"
-    ]
-
-    # MBTI별 이모지
-    mbti_emojis = {
-        'INTJ': '🧠', 'INTP': '🔬', 'ENTJ': '👔', 'ENTP': '💡',
-        'INFJ': '🌙', 'INFP': '🦋', 'ENFJ': '🌟', 'ENFP': '🎨',
-        'ISTJ': '📋', 'ISFJ': '🤗', 'ESTJ': '📊', 'ESFJ': '💝',
-        'ISTP': '🔧', 'ISFP': '🎸', 'ESTP': '🎯', 'ESFP': '🎭'
-    }
-
-    # 강점/약점 팁 (MZ 말투)
-    ohaeng_tips = {
-        '목': {
-            'strength': "성장 욕구 미쳤음 ㅋㅋ 새로운 거 도전하면 무조건 잘할 타입",
-            'weakness': "근데 가끔은 쉬어도 됨... 번아웃 조심해요 제발"
-        },
-        '화': {
-            'strength': "열정 MAX! 그 에너지 진짜 부럽다... 주변 사람들 다 챙기는 스타일",
-            'weakness': "화나면 일단 물 한 잔 마시고 3초 세기. 진심임"
-        },
-        '토': {
-            'strength': "믿음직함 그 자체. 주변에서 다 당신한테 기대는 이유가 있음",
-            'weakness': "변화도 나쁘지 않아요... 새로운 거 해보는 것도 꿀잼일 수 있음"
-        },
-        '금': {
-            'strength': "결정 장애? 그런 거 없음. 딱딱 판단하는 거 진짜 멋있어요",
-            'weakness': "완벽 안 해도 됨. 80%만 해도 상위권이에요 ㄹㅇ"
-        },
-        '수': {
-            'strength': "남들이 못 보는 거 보는 눈 있음. 그 통찰력 믿으세요",
-            'weakness': "생각 그만하고 일단 해보세요. 행동이 답 줄 때도 있음"
-        }
-    }
-
+    fortune_type = extra.get('fortune_type', 'overall')
     max_oh = result_data['ohaeng']['max']
-    min_oh = result_data['ohaeng']['min']
 
-    # 핵심 메시지도 더 캐주얼하게
-    core_messages = [
-        f"{max_oh}의 기운이 넘치는 당신, {mbti}답게 세상 똑부러지게 살아가는 중",
-        f"겉으론 {mbti}인데 속은 {ilju}의 기운이 숨어있는 반전매력 보유자",
-        f"이성적인 {mbti} 같지만 사실 {max_oh} 에너지로 움직이는 사람"
-    ]
-
-    # 관심사별 조언
-    concern_advices = {
-        'love': f"{mbti}인 당신, 연애에서는 솔직함이 무기예요. 근데 {max_oh} 기운이 강해서 가끔 너무 직진할 수도 있으니 속도 조절 필요! 상대방 반응 보면서 천천히 가도 괜찮아요.",
-        'career': f"진로 고민 중이라면? {ilju}의 기운 + {mbti} 조합은 꽤 괜찮은 커리어 운이에요. 특히 {max_oh} 에너지가 강하니까 그쪽 분야 노려보는 것도 방법!",
-        'money': f"재물운? {ilju}일주는 실속파라 돈 관리 잘할 타입이에요 ㅋㅋ 근데 {mbti}답게 가끔 충동구매 주의... 특히 스트레스 받을 때!",
-        'health': f"컨디션 관리가 고민이라면, {max_oh} 에너지 과다일 수 있어요. {mbti}는 번아웃 오기 전까지 모르는 타입이니까... 쉴 때 확실히 쉬세요 제발!",
-        'growth': f"자기계발 욕구 뿜뿜! {ilju}의 성실함 + {mbti}의 분석력이면 뭘 해도 잘할 타입이에요. 근데 너무 많이 벌리지 말고 하나씩 집중하는 게 포인트!"
+    # 운세 타입별 핵심 메시지
+    core_messages = {
+        'overall': f"{ilju}일주에 {mbti}인 당신은 {max_oh}의 기운이 강해요. 독특한 조합으로 자신만의 길을 개척하는 타입!",
+        'love': f"{mbti}답게 연애에서도 자기 스타일이 확실해요. {max_oh} 기운이 강해서 감정 표현도 솔직한 편이에요.",
+        'money': f"{ilju}일주는 재물 관리에 꽤 실속파예요. {mbti}의 성격과 합쳐져서 계획적인 소비 습관을 가질 수 있어요.",
+        'career': f"{ilju}의 기운과 {mbti}의 성격이 합쳐져서 꽤 독특한 직업 적성을 가지고 있어요. 창의력과 분석력 모두 갖춘 타입!"
     }
+
+    strength_tips = {
+        'overall': f"{max_oh} 에너지가 넘치니까 새로운 도전에 적극적이에요",
+        'love': "솔직한 감정 표현이 장점이에요. 자신감 있게 다가가세요",
+        'money': "실속 있는 소비 습관이 있어요. 그대로 유지하면 좋겠어요",
+        'career': "자기만의 방식으로 일 처리하는 게 강점이에요"
+    }
+
+    weakness_tips = {
+        'overall': "가끔은 쉬어가면서 에너지를 충전하세요",
+        'love': "상대방의 속도도 맞춰주면 더 좋은 관계가 될 거예요",
+        'money': "가끔 충동 소비 조심하면 좋겠어요",
+        'career': "팀워크가 필요할 때는 양보도 필요해요"
+    }
+
+    today_messages = [
+        "오늘 하루도 당신답게 보내세요",
+        "작은 것 하나라도 이루면 성공한 하루예요",
+        "자신을 믿으세요. 분명 잘 될 거예요",
+        "오늘은 평소보다 조금 더 여유를 가져보세요"
+    ]
 
     return {
-        "greeting": random.choice(greetings),
-        "core_message": random.choice(core_messages),
-        "strength_tip": ohaeng_tips.get(max_oh, {}).get('strength', '당신의 강점을 믿으세요!'),
-        "weakness_tip": ohaeng_tips.get(min_oh, {}).get('weakness', '약점도 매력이 될 수 있어요'),
-        "concern_advice": concern_advices.get(concern, concern_advices['growth']),
-        "today_message": random.choice(today_messages),
-        "emoji": mbti_emojis.get(mbti, '✨')
+        "core_message": core_messages.get(fortune_type, core_messages['overall']),
+        "strength_tip": strength_tips.get(fortune_type, strength_tips['overall']),
+        "weakness_tip": weakness_tips.get(fortune_type, weakness_tips['overall']),
+        "today_message": random.choice(today_messages)
     }

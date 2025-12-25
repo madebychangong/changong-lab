@@ -25,169 +25,89 @@
             </a>
         </header>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-
         <section class="input-section">
-            <div class="input-header">
-                <h1 class="input-title">정보 입력</h1>
-            </div>
-
             <form action="/analyze" method="POST" class="input-form" id="analysisForm">
-                <div class="form-section">
-                    <h2 class="section-title">기본 정보</h2>
 
-                    <!-- 생년월일 -->
-                    <div class="form-group">
-                        <label class="form-label">생년월일</label>
-                        <div class="date-inputs">
-                            <select name="birth_year" id="birthYear" required>
-                                <option value="">년도</option>
-                            </select>
-                            <select name="birth_month" id="birthMonth" required>
-                                <option value="">월</option>
-                            </select>
-                            <select name="birth_day" id="birthDay" required>
-                                <option value="">일</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">생년월일</label>
+                    <input type="date" name="birthdate" id="birthdate" required class="date-input">
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-label">달력 종류</label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="is_lunar" value="false" checked>
-                                <span class="radio-box"></span>
-                                <span class="radio-text">양력</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="is_lunar" value="true">
-                                <span class="radio-box"></span>
-                                <span class="radio-text">음력</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">태어난 시간 <span class="optional">(선택)</span></label>
-                        <select name="birth_hour" id="birthHour">
-                            <option value="">모름</option>
-                            <option value="0">자시 (23:30~01:30)</option>
-                            <option value="2">축시 (01:30~03:30)</option>
-                            <option value="4">인시 (03:30~05:30)</option>
-                            <option value="6">묘시 (05:30~07:30)</option>
-                            <option value="8">진시 (07:30~09:30)</option>
-                            <option value="10">사시 (09:30~11:30)</option>
-                            <option value="12">오시 (11:30~13:30)</option>
-                            <option value="14">미시 (13:30~15:30)</option>
-                            <option value="16">신시 (15:30~17:30)</option>
-                            <option value="18">유시 (17:30~19:30)</option>
-                            <option value="20">술시 (19:30~21:30)</option>
-                            <option value="22">해시 (21:30~23:30)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">성별</label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="gender" value="male" required>
-                                <span class="radio-box"></span>
-                                <span class="radio-text">남성</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="gender" value="female">
-                                <span class="radio-box"></span>
-                                <span class="radio-text">여성</span>
-                            </label>
-                        </div>
+                <div class="form-group">
+                    <label class="form-label">달력</label>
+                    <div class="toggle-buttons">
+                        <label class="toggle-btn active">
+                            <input type="radio" name="is_lunar" value="false" checked>
+                            <span>양력</span>
+                        </label>
+                        <label class="toggle-btn">
+                            <input type="radio" name="is_lunar" value="true">
+                            <span>음력</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="form-section">
-                    <h2 class="section-title">MBTI</h2>
-
-                    <div class="form-group">
-                        <label class="form-label">MBTI 유형</label>
-                        <select name="mbti" id="mbtiSelect" required>
-                            <option value="">선택</option>
-                            <optgroup label="분석가형 (NT)">
-                                <option value="INTJ">INTJ - 전략가</option>
-                                <option value="INTP">INTP - 논리술사</option>
-                                <option value="ENTJ">ENTJ - 통솔자</option>
-                                <option value="ENTP">ENTP - 변론가</option>
-                            </optgroup>
-                            <optgroup label="외교관형 (NF)">
-                                <option value="INFJ">INFJ - 옹호자</option>
-                                <option value="INFP">INFP - 중재자</option>
-                                <option value="ENFJ">ENFJ - 선도자</option>
-                                <option value="ENFP">ENFP - 활동가</option>
-                            </optgroup>
-                            <optgroup label="관리자형 (SJ)">
-                                <option value="ISTJ">ISTJ - 현실주의자</option>
-                                <option value="ISFJ">ISFJ - 수호자</option>
-                                <option value="ESTJ">ESTJ - 경영자</option>
-                                <option value="ESFJ">ESFJ - 집정관</option>
-                            </optgroup>
-                            <optgroup label="탐험가형 (SP)">
-                                <option value="ISTP">ISTP - 장인</option>
-                                <option value="ISFP">ISFP - 모험가</option>
-                                <option value="ESTP">ESTP - 사업가</option>
-                                <option value="ESFP">ESFP - 연예인</option>
-                            </optgroup>
-                        </select>
-                        <p class="form-hint">MBTI 모르면 <a href="https://www.16personalities.com/ko" target="_blank" rel="noopener">여기서 검사</a></p>
+                <div class="form-group">
+                    <label class="form-label">성별</label>
+                    <div class="toggle-buttons">
+                        <label class="toggle-btn">
+                            <input type="radio" name="gender" value="male" required>
+                            <span>남성</span>
+                        </label>
+                        <label class="toggle-btn">
+                            <input type="radio" name="gender" value="female">
+                            <span>여성</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="form-section">
-                    <h2 class="section-title">추가 질문</h2>
-
-                    <div class="form-group">
-                        <label class="form-label">요즘 관심사</label>
-                        <select name="concern" required>
-                            <option value="">선택</option>
-                            <option value="love">연애/인간관계</option>
-                            <option value="career">진로/취업</option>
-                            <option value="money">재물/금전운</option>
-                            <option value="health">건강/컨디션</option>
-                            <option value="growth">자기계발</option>
-                        </select>
+                <div class="form-group">
+                    <label class="form-label">MBTI</label>
+                    <div class="mbti-selector">
+                        <div class="mbti-tabs">
+                            <label class="mbti-tab">
+                                <input type="radio" name="mbti_ei" value="I" required>
+                                <span>I 내향</span>
+                            </label>
+                            <label class="mbti-tab">
+                                <input type="radio" name="mbti_ei" value="E">
+                                <span>E 외향</span>
+                            </label>
+                        </div>
+                        <div class="mbti-options" id="mbtiOptions">
+                            <!-- JS로 동적 생성 -->
+                        </div>
                     </div>
+                    <p class="form-hint">MBTI 모르면 <a href="https://www.16personalities.com/ko" target="_blank">검사하기</a></p>
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-label">현재 상황</label>
-                        <select name="status" required>
-                            <option value="">선택</option>
-                            <option value="start">새로운 시작을 앞두고 있어요</option>
-                            <option value="maintain">현재 상황을 유지하고 싶어요</option>
-                            <option value="change">변화가 필요하다고 느껴요</option>
-                            <option value="choice">선택의 기로에 있어요</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">사회적 성향</label>
-                        <select name="social_style" required>
-                            <option value="">선택</option>
-                            <option value="alone">혼자가 더 편해요</option>
-                            <option value="together">함께가 더 좋아요</option>
-                            <option value="balance">상황에 따라 달라요</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">일하는 스타일</label>
-                        <select name="work_style" required>
-                            <option value="">선택</option>
-                            <option value="planned">계획적으로 하는 편</option>
-                            <option value="spontaneous">즉흥적으로 하는 편</option>
-                            <option value="flexible">상황 봐서 유연하게</option>
-                        </select>
+                <div class="form-group">
+                    <label class="form-label">보고 싶은 운세</label>
+                    <div class="fortune-cards">
+                        <label class="fortune-card">
+                            <input type="radio" name="fortune_type" value="overall" required>
+                            <span class="fortune-title">종합운</span>
+                            <span class="fortune-desc">나의 전체적인 사주 분석</span>
+                        </label>
+                        <label class="fortune-card">
+                            <input type="radio" name="fortune_type" value="love">
+                            <span class="fortune-title">연애운</span>
+                            <span class="fortune-desc">인연과 연애 성향</span>
+                        </label>
+                        <label class="fortune-card">
+                            <input type="radio" name="fortune_type" value="money">
+                            <span class="fortune-title">금전운</span>
+                            <span class="fortune-desc">재물과 금전 흐름</span>
+                        </label>
+                        <label class="fortune-card">
+                            <input type="radio" name="fortune_type" value="career">
+                            <span class="fortune-title">직업운</span>
+                            <span class="fortune-desc">적성과 진로 방향</span>
+                        </label>
                     </div>
                 </div>
+
+                <input type="hidden" name="mbti" id="mbtiValue">
 
                 <div class="submit-section">
                     <button type="submit" class="submit-button">
@@ -203,72 +123,96 @@
     </div>
 
     <script>
-        // 년도 옵션 생성 (1940 ~ 현재)
-        const yearSelect = document.getElementById('birthYear');
-        const currentYear = new Date().getFullYear();
-        for (let year = currentYear; year >= 1940; year--) {
-            const option = document.createElement('option');
-            option.value = year;
-            option.textContent = year + '년';
-            yearSelect.appendChild(option);
-        }
+        // MBTI 데이터
+        const mbtiTypes = {
+            'I': ['INTJ', 'INTP', 'INFJ', 'INFP', 'ISTJ', 'ISFJ', 'ISTP', 'ISFP'],
+            'E': ['ENTJ', 'ENTP', 'ENFJ', 'ENFP', 'ESTJ', 'ESFJ', 'ESTP', 'ESFP']
+        };
 
-        // 월 옵션 생성
-        const monthSelect = document.getElementById('birthMonth');
-        for (let month = 1; month <= 12; month++) {
-            const option = document.createElement('option');
-            option.value = month;
-            option.textContent = month + '월';
-            monthSelect.appendChild(option);
-        }
+        const mbtiNames = {
+            'INTJ': '전략가', 'INTP': '논리술사', 'INFJ': '옹호자', 'INFP': '중재자',
+            'ISTJ': '현실주의자', 'ISFJ': '수호자', 'ISTP': '장인', 'ISFP': '모험가',
+            'ENTJ': '통솔자', 'ENTP': '변론가', 'ENFJ': '선도자', 'ENFP': '활동가',
+            'ESTJ': '경영자', 'ESFJ': '집정관', 'ESTP': '사업가', 'ESFP': '연예인'
+        };
 
-        // 일 옵션 생성
-        const daySelect = document.getElementById('birthDay');
-        for (let day = 1; day <= 31; day++) {
-            const option = document.createElement('option');
-            option.value = day;
-            option.textContent = day + '일';
-            daySelect.appendChild(option);
-        }
+        // I/E 탭 전환
+        const eiRadios = document.querySelectorAll('input[name="mbti_ei"]');
+        const mbtiOptions = document.getElementById('mbtiOptions');
+        const mbtiValue = document.getElementById('mbtiValue');
 
-        // 진행률 계산
+        eiRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const types = mbtiTypes[this.value];
+                mbtiOptions.innerHTML = types.map(type => `
+                    <label class="mbti-option">
+                        <input type="radio" name="mbti_type" value="${type}">
+                        <span>${type}</span>
+                        <small>${mbtiNames[type]}</small>
+                    </label>
+                `).join('');
+
+                // 선택 시 hidden input 업데이트
+                mbtiOptions.querySelectorAll('input').forEach(input => {
+                    input.addEventListener('change', () => {
+                        mbtiValue.value = input.value;
+                    });
+                });
+            });
+        });
+
+        // 토글 버튼 활성화
+        document.querySelectorAll('.toggle-buttons').forEach(group => {
+            group.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    group.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+        });
+
+        // 운세 카드 선택
+        document.querySelectorAll('.fortune-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.fortune-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+            });
+        });
+
+        // 폼 제출
         const form = document.getElementById('analysisForm');
-        const progressFill = document.getElementById('progressFill');
-        const requiredFields = form.querySelectorAll('[required]');
-
-        function updateProgress() {
-            let filled = 0;
-            requiredFields.forEach(field => {
-                if (field.type === 'radio') {
-                    if (form.querySelector(`input[name="${field.name}"]:checked`)) {
-                        filled++;
-                    }
-                } else if (field.value) {
-                    filled++;
-                }
-            });
-            // 중복 제거를 위해 unique name 수로 계산
-            const uniqueNames = [...new Set([...requiredFields].map(f => f.name))];
-            let uniqueFilled = 0;
-            uniqueNames.forEach(name => {
-                const field = form.querySelector(`[name="${name}"]`);
-                if (field.type === 'radio') {
-                    if (form.querySelector(`input[name="${name}"]:checked`)) uniqueFilled++;
-                } else if (field.value) {
-                    uniqueFilled++;
-                }
-            });
-            const percent = (uniqueFilled / uniqueNames.length) * 100;
-            progressFill.style.width = percent + '%';
-        }
-
-        form.addEventListener('change', updateProgress);
-        form.addEventListener('input', updateProgress);
-
-        // 폼 제출 시 로딩 표시
         form.addEventListener('submit', function(e) {
+            // 생년월일 파싱
+            const birthdate = document.getElementById('birthdate').value;
+            if (birthdate) {
+                const [year, month, day] = birthdate.split('-');
+
+                // hidden fields 추가
+                const addHidden = (name, value) => {
+                    let input = form.querySelector(`input[name="${name}"][type="hidden"]`);
+                    if (!input) {
+                        input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = name;
+                        form.appendChild(input);
+                    }
+                    input.value = value;
+                };
+
+                addHidden('birth_year', year);
+                addHidden('birth_month', month);
+                addHidden('birth_day', day);
+            }
+
+            // MBTI 체크
+            if (!mbtiValue.value) {
+                e.preventDefault();
+                alert('MBTI를 선택해주세요');
+                return;
+            }
+
             const button = this.querySelector('.submit-button');
-            button.innerHTML = '<span class="loading-spinner"></span> 분석 중...';
+            button.innerHTML = '분석 중...';
             button.disabled = true;
         });
     </script>

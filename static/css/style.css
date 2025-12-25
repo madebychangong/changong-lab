@@ -1445,3 +1445,289 @@ select:hover, input:hover {
         padding: 32px 48px;
     }
 }
+
+/* ===== NEW INPUT FORM STYLES ===== */
+.date-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.toggle-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.toggle-btn input {
+    display: none;
+}
+
+.toggle-btn.active,
+.toggle-btn:has(input:checked) {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* MBTI Selector */
+.mbti-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mbti-tabs {
+    display: flex;
+    gap: 8px;
+}
+
+.mbti-tab {
+    flex: 1;
+    padding: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mbti-tab input {
+    display: none;
+}
+
+.mbti-tab:has(input:checked) {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: white;
+}
+
+.mbti-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.mbti-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mbti-option input {
+    display: none;
+}
+
+.mbti-option span {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.mbti-option small {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.mbti-option:has(input:checked) {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: var(--primary);
+}
+
+.mbti-option:has(input:checked) span {
+    color: var(--primary-light);
+}
+
+/* Fortune Cards */
+.fortune-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.fortune-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.fortune-card input {
+    display: none;
+}
+
+.fortune-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.fortune-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.fortune-card.selected,
+.fortune-card:has(input:checked) {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: var(--primary);
+}
+
+.fortune-card.selected .fortune-title,
+.fortune-card:has(input:checked) .fortune-title {
+    color: var(--primary-light);
+}
+
+/* ===== NEW RESULT PAGE STYLES ===== */
+.result-type-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--gradient-primary);
+    border-radius: 100px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.ai-main-message {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.fortune-detail {
+    margin-bottom: 20px;
+}
+
+.fortune-detail h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary-light);
+    margin-bottom: 8px;
+}
+
+.fortune-detail p {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.today-tip {
+    margin-top: 24px;
+    padding: 16px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: var(--radius-md);
+}
+
+.today-tip .tip-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary-light);
+    margin-bottom: 8px;
+}
+
+.today-tip p {
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.saju-summary {
+    padding: 20px;
+}
+
+.saju-mini-grid {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.saju-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.saju-item .saju-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.saju-item .saju-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.action-buttons .share-btn,
+.action-buttons .retry-btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-buttons .share-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+.action-buttons .retry-btn {
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+}
