@@ -21,48 +21,44 @@
         <div class="bg-grid"></div>
     </div>
 
-    <div class="container">
-        <header class="header">
-            <a href="/" class="logo">
-                <span class="logo-text">MZ사주</span>
+    <div class="container landing-container">
+        <section class="hero-centered">
+            <div class="logo-symbol">
+                <svg viewBox="0 0 100 100" class="taiji-logo">
+                    <circle cx="50" cy="50" r="48" fill="none" stroke="url(#logoGradient)" stroke-width="2"/>
+                    <path d="M50 2 A48 48 0 0 1 50 98 A24 24 0 0 1 50 50 A24 24 0 0 0 50 2" fill="url(#logoGradient)"/>
+                    <circle cx="50" cy="26" r="6" fill="#0A0A0F"/>
+                    <circle cx="50" cy="74" r="6" fill="url(#logoGradient)"/>
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#8B5CF6"/>
+                            <stop offset="100%" style="stop-color:#EC4899"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
+            <h1 class="brand-title">MZ사주</h1>
+
+            <p class="brand-tagline">사주와 MBTI로 알아보는 나</p>
+
+            <div class="preview-card">
+                <div class="preview-label">갑자 × ENFP</div>
+                <div class="preview-name">자유로운 개척자</div>
+                <div class="preview-keywords">
+                    <span>#창의적</span>
+                    <span>#열정</span>
+                    <span>#리더십</span>
+                </div>
+            </div>
+
+            <a href="/input" class="start-button">
+                시작하기
             </a>
-        </header>
-
-        <section class="hero">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="title-line"><span class="gradient-text">사주</span>와 <span class="gradient-text">MBTI</span>의 만남</span>
-                </h1>
-
-                <p class="hero-subtitle">
-                    생년월일과 MBTI로 알아보는 나의 성향
-                </p>
-
-                <div class="hero-cta">
-                    <a href="/input" class="cta-button primary">
-                        분석 시작하기
-                    </a>
-                </div>
-            </div>
-
-            <div class="hero-visual">
-                <div class="visual-card">
-                    <div class="card-glow"></div>
-                    <div class="preview-result">
-                        <div class="preview-badge">갑자 × ENFP</div>
-                        <div class="preview-title">자유로운 개척자</div>
-                        <div class="preview-tags">
-                            <span>#창의적</span>
-                            <span>#열정</span>
-                            <span>#리더십</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </section>
 
-        <footer class="footer">
-            <p class="copyright">© 2025 MZ사주</p>
+        <footer class="footer-minimal">
+            <p>© 2025 MZ사주</p>
         </footer>
     </div>
 </body>
