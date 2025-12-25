@@ -149,58 +149,78 @@ def add_default_styling(result_data):
 
 
 def get_fallback_content(result_data):
-    """AI 실패 시 폴백 콘텐츠"""
+    """AI 실패 시 폴백 콘텐츠 - MZ감성 버전"""
 
-    # 다양한 인사말 풀
+    ilju = result_data.get('ilju', '')
+    mbti = result_data.get('mbti', '')
+
+    # 다양한 인사말 풀 (MZ감성)
     greetings = [
-        "흥미로운 조합이네요!",
-        "꽤 독특한 기운을 가지고 계시네요.",
-        "재미있는 결과가 나왔어요!",
-        "오, 이런 조합은 흔치 않아요.",
-        "당신만의 특별한 에너지가 보여요."
+        f"오 대박... {ilju}에 {mbti}라니 🤯",
+        f"잠깐, 이 조합 실화...? ㄹㅇ 특이하네요",
+        f"헐 {mbti}인데 {ilju}일주...? 흥미롭다 흥미로워",
+        f"와 이거 꽤 레어한 조합인데요?",
+        f"음... 뭔가 있어 보이는 조합이에요 ㅎㅎ"
     ]
 
-    # 오늘의 메시지 풀
+    # 오늘의 메시지 풀 (운세 스타일 + MZ)
     today_messages = [
-        "오늘은 새로운 시도가 좋은 결과를 가져올 거예요.",
-        "주변 사람들에게 먼저 다가가 보세요.",
-        "작은 성취에도 스스로를 칭찬해주세요.",
-        "오늘 하루, 당신의 강점에 집중해보세요.",
-        "예상치 못한 곳에서 기회가 올 수 있어요."
+        "오늘은 일단 저지르세요. 결과는 나중에 생각해도 됨 ㅋㅋ",
+        "누가 뭐래도 오늘 하루는 내가 주인공임",
+        "작은 거라도 하나 이루면 그걸로 성공한 하루예요",
+        "오늘 만나는 사람 중에 인연이 있을지도...?",
+        "그냥 맛있는 거 먹어요. 그게 답임",
+        "평소에 못 했던 말, 오늘은 해도 될 듯",
+        "sns 좀 쉬고 나한테 집중하는 하루 어때요"
     ]
 
-    # 강점/약점 팁
+    # MBTI별 이모지
+    mbti_emojis = {
+        'INTJ': '🧠', 'INTP': '🔬', 'ENTJ': '👔', 'ENTP': '💡',
+        'INFJ': '🌙', 'INFP': '🦋', 'ENFJ': '🌟', 'ENFP': '🎨',
+        'ISTJ': '📋', 'ISFJ': '🤗', 'ESTJ': '📊', 'ESFJ': '💝',
+        'ISTP': '🔧', 'ISFP': '🎸', 'ESTP': '🎯', 'ESFP': '🎭'
+    }
+
+    # 강점/약점 팁 (MZ 말투)
     ohaeng_tips = {
         '목': {
-            'strength': "성장하려는 의지가 강점이에요. 새로운 도전을 두려워하지 마세요.",
-            'weakness': "너무 앞만 보고 달리지 말고, 가끔은 쉬어가는 것도 필요해요."
+            'strength': "성장 욕구 미쳤음 ㅋㅋ 새로운 거 도전하면 무조건 잘할 타입",
+            'weakness': "근데 가끔은 쉬어도 됨... 번아웃 조심해요 제발"
         },
         '화': {
-            'strength': "뜨거운 열정이 매력이에요. 그 에너지로 주변을 밝혀주세요.",
-            'weakness': "감정이 앞설 때는 심호흡 한 번. 차분함이 힘이 될 거예요."
+            'strength': "열정 MAX! 그 에너지 진짜 부럽다... 주변 사람들 다 챙기는 스타일",
+            'weakness': "화나면 일단 물 한 잔 마시고 3초 세기. 진심임"
         },
         '토': {
-            'strength': "묵직한 안정감이 강점이에요. 사람들이 당신을 믿고 의지해요.",
-            'weakness': "변화를 두려워하지 마세요. 새로운 것도 당신의 것이 될 수 있어요."
+            'strength': "믿음직함 그 자체. 주변에서 다 당신한테 기대는 이유가 있음",
+            'weakness': "변화도 나쁘지 않아요... 새로운 거 해보는 것도 꿀잼일 수 있음"
         },
         '금': {
-            'strength': "날카로운 판단력이 강점이에요. 결정이 필요할 때 빛을 발해요.",
-            'weakness': "가끔은 완벽하지 않아도 괜찮아요. 과정도 소중하니까요."
+            'strength': "결정 장애? 그런 거 없음. 딱딱 판단하는 거 진짜 멋있어요",
+            'weakness': "완벽 안 해도 됨. 80%만 해도 상위권이에요 ㄹㅇ"
         },
         '수': {
-            'strength': "깊은 통찰력이 매력이에요. 남들이 못 보는 걸 보는 눈이 있어요.",
-            'weakness': "생각이 많을 땐 일단 움직여보세요. 행동이 답을 줄 때도 있어요."
+            'strength': "남들이 못 보는 거 보는 눈 있음. 그 통찰력 믿으세요",
+            'weakness': "생각 그만하고 일단 해보세요. 행동이 답 줄 때도 있음"
         }
     }
 
     max_oh = result_data['ohaeng']['max']
     min_oh = result_data['ohaeng']['min']
 
+    # 핵심 메시지도 더 캐주얼하게
+    core_messages = [
+        f"{max_oh}의 기운이 넘치는 당신, {mbti}답게 세상 똑부러지게 살아가는 중",
+        f"겉으론 {mbti}인데 속은 {ilju}의 기운이 숨어있는 반전매력 보유자",
+        f"이성적인 {mbti} 같지만 사실 {max_oh} 에너지로 움직이는 사람"
+    ]
+
     return {
         "greeting": random.choice(greetings),
-        "core_message": result_data['combination']['summary'],
-        "strength_tip": ohaeng_tips.get(max_oh, {}).get('strength', '당신의 강점을 믿으세요.'),
-        "weakness_tip": ohaeng_tips.get(min_oh, {}).get('weakness', '약점도 극복할 수 있어요.'),
+        "core_message": random.choice(core_messages),
+        "strength_tip": ohaeng_tips.get(max_oh, {}).get('strength', '당신의 강점을 믿으세요!'),
+        "weakness_tip": ohaeng_tips.get(min_oh, {}).get('weakness', '약점도 매력이 될 수 있어요'),
         "today_message": random.choice(today_messages),
-        "emoji": "✨"
+        "emoji": mbti_emojis.get(mbti, '✨')
     }
