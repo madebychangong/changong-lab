@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>궁합 분석 | MZ사주</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="result-page">
+    <div class="bg-effects">
+        <div class="bg-gradient"></div>
+        <div class="bg-grid"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <a href="/" class="logo">
+                <span class="logo-text">MZ사주</span>
+            </a>
+        </header>
+
+        <section class="result-section">
+            <div class="result-card main-card">
+                <div class="result-type-badge premium-badge">궁합 분석</div>
+                <h1 class="result-title">{{ result.compatibility_title | default('두 사람의 궁합') }}</h1>
+            </div>
+
+            <!-- 궁합 점수 -->
+            <div class="result-card compatibility-score">
+                <div class="score-circle">
+                    <span class="score-number">{{ result.score | default(78) }}</span>
+                    <span class="score-unit">점</span>
+                </div>
+                <p class="score-desc">{{ result.score_desc | default('서로를 보완하는 좋은 궁합이에요') }}</p>
+            </div>
+
+            <!-- 나 -->
+            <div class="result-card">
+                <h2 class="section-title">나의 연애 성향</h2>
+                <div class="person-info">
+                    <span class="person-badge">{{ result.person1.ilju | default(result.ilju) }} × {{ result.person1.mbti | default(result.mbti) }}</span>
+                </div>
+                <p>{{ result.person1.love_style | default('상대를 깊이 이해하려 하고, 안정적인 관계를 추구하는 타입이에요.') }}</p>
+            </div>
+
+            <!-- 상대 -->
+            <div class="result-card">
+                <h2 class="section-title">상대의 연애 성향</h2>
+                <div class="person-info">
+                    <span class="person-badge">{{ result.person2.ilju | default('미입력') }} × {{ result.person2.mbti | default('미입력') }}</span>
+                </div>
+                <p>{{ result.person2.love_style | default('자유롭고 열정적인 연애를 선호하며, 새로운 경험을 함께 나누고 싶어해요.') }}</p>
+            </div>
+
+            <!-- 궁합 분석 -->
+            <div class="result-card">
+                <h2 class="section-title">두 사람의 케미</h2>
+                <p>{{ result.chemistry | default('서로 다른 성향이지만 그만큼 배울 점이 많아요. 상대의 장점을 인정하고 존중한다면 오래 가는 관계가 될 수 있어요.') }}</p>
+            </div>
+
+            <!-- 조언 -->
+            <div class="result-card">
+                <h2 class="section-title">관계를 위한 조언</h2>
+                <div class="advice-list">
+                    <div class="advice-item good">
+                        <span class="advice-label">잘 맞는 점</span>
+                        <p>{{ result.good_match | default('대화 스타일이 비슷하고 유머 코드가 잘 맞아요') }}</p>
+                    </div>
+                    <div class="advice-item caution">
+                        <span class="advice-label">주의할 점</span>
+                        <p>{{ result.caution | default('서로의 개인 시간을 존중해주는 것이 중요해요') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 저장 안내 -->
+            <div class="save-notice">
+                <p>이 페이지를 북마크하면 언제든 다시 볼 수 있어요</p>
+                <button class="bookmark-btn" onclick="copyResultLink()">링크 복사하기</button>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p class="copyright">© 2025 MZ사주</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyResultLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('링크가 복사되었습니다! 북마크해두세요.');
+            });
+        }
+    </script>
+</body>
+</html>

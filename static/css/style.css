@@ -1848,3 +1848,187 @@ select:hover, input:hover {
     font-weight: 600;
     color: var(--primary-light);
 }
+
+/* ===== PREMIUM RESULT PAGES ===== */
+.premium-badge {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+
+.section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.yearly-summary {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+/* Monthly Grid */
+.monthly-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.month-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    background: var(--bg-elevated);
+    border-radius: var(--radius-md);
+    gap: 6px;
+}
+
+.month-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--primary-light);
+}
+
+.month-fortune {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* Warning & Lucky Cards */
+.warning-card {
+    border-left: 3px solid #F59E0B;
+}
+
+.warning-card .section-title {
+    color: #F59E0B;
+}
+
+.lucky-card {
+    border-left: 3px solid #10B981;
+}
+
+.lucky-card .section-title {
+    color: #10B981;
+}
+
+/* Save Notice */
+.save-notice {
+    text-align: center;
+    padding: 24px;
+    margin-top: 24px;
+}
+
+.save-notice p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.bookmark-btn {
+    padding: 12px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.bookmark-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary-light);
+}
+
+/* Compatibility Score */
+.compatibility-score {
+    text-align: center;
+    padding: 32px;
+}
+
+.score-circle {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    margin-bottom: 16px;
+}
+
+.score-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: white;
+}
+
+.score-unit {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 2px;
+}
+
+.score-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+/* Person Info */
+.person-info {
+    margin-bottom: 12px;
+}
+
+.person-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--bg-elevated);
+    border-radius: 100px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* Advice List */
+.advice-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.advice-item {
+    padding: 16px;
+    border-radius: var(--radius-md);
+}
+
+.advice-item.good {
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.advice-item.caution {
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.advice-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.advice-item.good .advice-label {
+    color: #10B981;
+}
+
+.advice-item.caution .advice-label {
+    color: #F59E0B;
+}
+
+.advice-item p {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}

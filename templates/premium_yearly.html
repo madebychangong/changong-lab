@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026년 상세 운세 | MZ사주</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="result-page">
+    <div class="bg-effects">
+        <div class="bg-gradient"></div>
+        <div class="bg-grid"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <a href="/" class="logo">
+                <span class="logo-text">MZ사주</span>
+            </a>
+        </header>
+
+        <section class="result-section">
+            <div class="result-card main-card">
+                <div class="result-type-badge premium-badge">2026년 상세 운세</div>
+                <div class="result-badge">{{ result.ilju }} × {{ result.mbti }}</div>
+                <h1 class="result-title">{{ result.title }}</h1>
+            </div>
+
+            <!-- 연간 운세 요약 -->
+            <div class="result-card">
+                <h2 class="section-title">2026년 총운</h2>
+                <p class="yearly-summary">{{ result.yearly_summary | default('2026년은 당신에게 새로운 도전과 성장의 해가 될 것입니다. 상반기에는 준비와 계획에 집중하고, 하반기에는 적극적인 실행이 좋은 결과를 가져올 거예요.') }}</p>
+            </div>
+
+            <!-- 월별 운세 -->
+            <div class="result-card">
+                <h2 class="section-title">월별 운세</h2>
+                <div class="monthly-grid">
+                    {% for month in range(1, 13) %}
+                    <div class="month-item">
+                        <span class="month-label">{{ month }}월</span>
+                        <span class="month-fortune">{{ result.monthly[month-1] | default('평온한 흐름') if result.monthly else '평온한 흐름' }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 주의 시기 -->
+            <div class="result-card warning-card">
+                <h2 class="section-title">주의할 시기</h2>
+                <p>{{ result.warning_period | default('3월과 8월에는 중요한 결정을 미루는 것이 좋습니다. 특히 금전 관련 계약이나 큰 투자는 신중하게 검토하세요.') }}</p>
+            </div>
+
+            <!-- 행운의 시기 -->
+            <div class="result-card lucky-card">
+                <h2 class="section-title">행운의 시기</h2>
+                <p>{{ result.lucky_period | default('5월과 11월이 가장 좋은 시기입니다. 새로운 시작이나 중요한 프로젝트를 이 시기에 진행하면 좋은 결과를 얻을 수 있어요.') }}</p>
+            </div>
+
+            <!-- 저장 안내 -->
+            <div class="save-notice">
+                <p>이 페이지를 북마크하면 언제든 다시 볼 수 있어요</p>
+                <button class="bookmark-btn" onclick="copyResultLink()">링크 복사하기</button>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p class="copyright">© 2025 MZ사주</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyResultLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('링크가 복사되었습니다! 북마크해두세요.');
+            });
+        }
+    </script>
+</body>
+</html>
