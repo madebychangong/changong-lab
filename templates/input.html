@@ -125,6 +125,84 @@
                     <p class="form-hint">MBTI를 모르시면 <a href="https://www.16personalities.com/ko" target="_blank" rel="noopener">여기서 검사</a>하세요</p>
                 </div>
 
+                <!-- 추가 질문 섹션 -->
+                <div class="extra-questions">
+                    <h3 class="extra-title">조금 더 알려주세요</h3>
+
+                    <!-- 관심사 선택 -->
+                    <div class="form-group">
+                        <label class="form-label">요즘 가장 신경 쓰이는 건?</label>
+                        <div class="chip-group">
+                            <label class="chip-label">
+                                <input type="radio" name="concern" value="love" required>
+                                <span class="chip">연애/인간관계</span>
+                            </label>
+                            <label class="chip-label">
+                                <input type="radio" name="concern" value="career">
+                                <span class="chip">진로/취업</span>
+                            </label>
+                            <label class="chip-label">
+                                <input type="radio" name="concern" value="money">
+                                <span class="chip">재물/금전운</span>
+                            </label>
+                            <label class="chip-label">
+                                <input type="radio" name="concern" value="health">
+                                <span class="chip">건강/컨디션</span>
+                            </label>
+                            <label class="chip-label">
+                                <input type="radio" name="concern" value="growth">
+                                <span class="chip">자기계발</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 현재 상태 -->
+                    <div class="form-group">
+                        <label class="form-label">지금 내 상황은?</label>
+                        <div class="chip-group">
+                            <label class="chip-label">
+                                <input type="radio" name="status" value="start" required>
+                                <span class="chip">새로운 시작</span>
+                            </label>
+                            <label class="chip-label">
+                                <input type="radio" name="status" value="maintain">
+                                <span class="chip">현재 유지</span>
+                            </label>
+                            <label class="chip-label">
+                                <input type="radio" name="status" value="change">
+                                <span class="chip">변화 필요</span>
+                            </label>
+                            <label class="chip-label">
+                                <input type="radio" name="status" value="choice">
+                                <span class="chip">선택의 기로</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 성향 -->
+                    <div class="form-group">
+                        <label class="form-label">나는 어떤 편?</label>
+                        <div class="toggle-group">
+                            <div class="toggle-item">
+                                <span class="toggle-left">혼자가 편해</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="prefer_together" value="true">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-right">함께가 좋아</span>
+                            </div>
+                            <div class="toggle-item">
+                                <span class="toggle-left">계획적</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="prefer_spontaneous" value="true">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-right">즉흥적</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Submit Button -->
                 <button type="submit" class="submit-button">
                     분석 시작하기

@@ -66,6 +66,20 @@
                     <span class="today-label">🔮 오늘의 한마디</span>
                     <p>{{ result.ai_styled.today_message }}</p>
                 </div>
+
+                {% if result.ai_styled.concern_advice and result.extra_info %}
+                <div class="concern-section">
+                    <h3 class="concern-title">🎯
+                        {% if result.extra_info.concern == 'love' %}연애/인간관계
+                        {% elif result.extra_info.concern == 'career' %}진로/취업
+                        {% elif result.extra_info.concern == 'money' %}재물/금전운
+                        {% elif result.extra_info.concern == 'health' %}건강/컨디션
+                        {% elif result.extra_info.concern == 'growth' %}자기계발
+                        {% endif %} 맞춤 조언
+                    </h3>
+                    <p class="concern-advice">{{ result.ai_styled.concern_advice }}</p>
+                </div>
+                {% endif %}
             </div>
             {% endif %}
 

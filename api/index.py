@@ -31,6 +31,19 @@ def analyze():
         gender = request.form.get('gender')
         mbti = request.form.get('mbti', '').upper()
 
+        # 추가 질문 데이터
+        concern = request.form.get('concern', '')  # love, career, money, health, growth
+        status = request.form.get('status', '')    # start, maintain, change, choice
+        prefer_together = request.form.get('prefer_together') == 'true'
+        prefer_spontaneous = request.form.get('prefer_spontaneous') == 'true'
+
+        extra_info = {
+            'concern': concern,
+            'status': status,
+            'prefer_together': prefer_together,
+            'prefer_spontaneous': prefer_spontaneous
+        }
+
         # 사주 계산
         saju_result = calculate_saju(
             birth_year, birth_month, birth_day,
@@ -39,6 +52,9 @@ def analyze():
 
         # 결합 결과 생성
         result = get_combined_result(saju_result, mbti, gender)
+
+        # 추가 정보 저장
+        result['extra_info'] = extra_info
 
         # AI 스타일링 추가 (Gemini)
         result = generate_styled_result(result)
