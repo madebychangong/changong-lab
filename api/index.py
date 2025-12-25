@@ -89,6 +89,51 @@ def api_analyze():
         return jsonify({'error': str(e)}), 400
 
 
+@app.route('/api/test-db')
+def test_db():
+    """DB 연결 테스트"""
+    from utils.db import get_supabase, generate_result_id
+
+    supabase = get_supabase()
+    if not supabase:
+        return jsonify({
+            'status': 'failed',
+            'error': 'Supabase 연결 실패 (환경변수 확인 필요)'
+        }), 500
+
+    try:
+        # 테스트 데이터 삽입
+        test_id = generate_result_id()
+        test_data = {
+            'result': {'test': True, 'message': 'DB 연결 테스트'},
+            'product_type': 'test'
+        }
+
+        supabase.table('pay_orders').insert({
+            'id': test_id,
+            'data': test_data,
+            'payment_key': 'test_payment'
+        }).execute()
+
+        # 삽입된 데이터 조회
+        response = supabase.table('pay_orders').select('*').eq('id', test_id).execute()
+
+        # 테스트 데이터 삭제
+        supabase.table('pay_orders').delete().eq('id', test_id).execute()
+
+        return jsonify({
+            'status': 'success',
+            'message': 'DB 연결 성공! 데이터 삽입/조회/삭제 모두 정상',
+            'test_id': test_id
+        })
+
+    except Exception as e:
+        return jsonify({
+            'status': 'failed',
+            'error': str(e)
+        }), 500
+
+
 @app.route('/premium/<result_id>')
 def premium_result(result_id):
     """저장된 유료 결과 조회"""
