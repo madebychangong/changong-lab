@@ -10,7 +10,7 @@ import requests
 
 # 환경 변수에서 API 키 가져오기 (Vercel에서 설정)
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'AIzaSyBgBZCBsSfchbJOQjZYbhny9_R4Nx1MdAo')
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
 
 
 def generate_styled_result(result_data):
