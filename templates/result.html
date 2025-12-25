@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ result.share.title }} | 찬공랩</title>
+
+    <!-- SEO & Open Graph -->
+    <meta name="description" content="{{ result.share.description }}">
+    <meta property="og:title" content="{{ result.share.title }}">
+    <meta property="og:description" content="{{ result.share.description }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://changong.store">
+    <meta property="og:image" content="/static/images/og-image.png">
+
+    <!-- Kakao SDK -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="result-page">
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <a href="/" class="logo">찬공랩</a>
+        </header>
+
+        <!-- Result Card -->
+        <section class="result-section">
+            <!-- 메인 결과 카드 -->
+            <div class="result-card main-card">
+                <div class="result-emoji">{{ result.ai_styled.emoji if result.ai_styled else '✨' }}</div>
+                <div class="result-badge">{{ result.ilju }} × {{ result.mbti }}</div>
+                <h1 class="result-title">{{ result.title }}</h1>
+
+                <div class="result-keywords">
+                    {% for keyword in result.keywords %}
+                    <span class="keyword">#{{ keyword }}</span>
+                    {% endfor %}
+                </div>
+
+                {% if result.ai_styled %}
+                <p class="ai-greeting">{{ result.ai_styled.greeting }}</p>
+                {% endif %}
+            </div>
+
+            <!-- AI 핵심 메시지 -->
+            {% if result.ai_styled %}
+            <div class="result-card ai-card">
+                <h2 class="card-title">💬 당신에게 드리는 말</h2>
+                <p class="ai-core-message">{{ result.ai_styled.core_message }}</p>
+                <div class="ai-tips">
+                    <div class="tip-item strength">
+                        <span class="tip-label">💪 강점 활용</span>
+                        <p>{{ result.ai_styled.strength_tip }}</p>
+                    </div>
+                    <div class="tip-item weakness">
+                        <span class="tip-label">🌱 성장 포인트</span>
+                        <p>{{ result.ai_styled.weakness_tip }}</p>
+                    </div>
+                </div>
+                <div class="today-message">
+                    <span class="today-label">🔮 오늘의 한마디</span>
+                    <p>{{ result.ai_styled.today_message }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- 사주 정보 -->
+            <div class="result-card">
+                <h2 class="card-title">📅 사주 정보</h2>
+                <div class="saju-grid">
+                    <div class="saju-pillar">
+                        <span class="pillar-label">년주</span>
+                        <span class="pillar-value">{{ result.saju.year_ganji }}</span>
+                    </div>
+                    <div class="saju-pillar">
+                        <span class="pillar-label">월주</span>
+                        <span class="pillar-value">{{ result.saju.month_ganji }}</span>
+                    </div>
+                    <div class="saju-pillar highlight">
+                        <span class="pillar-label">일주</span>
+                        <span class="pillar-value">{{ result.saju.day_ganji }}</span>
+                    </div>
+                    {% if result.saju.hour_ganji %}
+                    <div class="saju-pillar">
+                        <span class="pillar-label">시주</span>
+                        <span class="pillar-value">{{ result.saju.hour_ganji }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- 오행 분석 -->
+            <div class="result-card">
+                <h2 class="card-title">🔥 오행 에너지</h2>
+                <div class="ohaeng-chart">
+                    {% for ohaeng, count in result.ohaeng.counts.items() %}
+                    <div class="ohaeng-bar">
+                        <span class="ohaeng-label">{{ ohaeng }}</span>
+                        <div class="bar-container">
+                            <div class="bar-fill {{ ohaeng }}" style="width: {{ count * 12.5 }}%"></div>
+                        </div>
+                        <span class="ohaeng-count">{{ count }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="ohaeng-analysis">
+                    <p><strong>강한 기운 ({{ result.ohaeng.max }}):</strong> {{ result.ohaeng.excess_analysis }}</p>
+                    <p><strong>약한 기운 ({{ result.ohaeng.min }}):</strong> {{ result.ohaeng.lack_analysis }}</p>
+                </div>
+            </div>
+
+            <!-- 일주 해석 -->
+            <div class="result-card">
+                <h2 class="card-title">🌿 일주 해석: {{ result.ilju_name }}</h2>
+                <p class="card-description">{{ result.saju.ilju_description }}</p>
+                <div class="trait-box">
+                    <p><strong>성격:</strong> {{ result.saju.ilju_personality }}</p>
+                    <p><strong>강점:</strong> {{ result.saju.ilju_strength }}</p>
+                    <p><strong>약점:</strong> {{ result.saju.ilju_weakness }}</p>
+                </div>
+            </div>
+
+            <!-- MBTI 해석 -->
+            <div class="result-card">
+                <h2 class="card-title">🧠 MBTI: {{ result.mbti }} {{ result.mbti_name }}</h2>
+                <p class="card-description">{{ result.mbti_info.description }}</p>
+                <div class="trait-box">
+                    <p><strong>강점:</strong> {{ result.mbti_info.strength }}</p>
+                    <p><strong>약점:</strong> {{ result.mbti_info.weakness }}</p>
+                </div>
+            </div>
+
+            <!-- 결합 분석 -->
+            <div class="result-card highlight-card">
+                <h2 class="card-title">⚡ 사주 × MBTI 결합 분석</h2>
+                <p class="combination-summary">{{ result.combination.summary }}</p>
+                <div class="combination-details">
+                    {% for text in result.combination.texts %}
+                    <p>{{ text }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 공유 버튼 -->
+            <div class="share-section">
+                <h3 class="share-title">친구에게 공유하기</h3>
+                <div class="share-buttons">
+                    <button class="share-btn kakao" onclick="shareKakao()">
+                        카카오톡
+                    </button>
+                    <button class="share-btn copy" onclick="copyLink()">
+                        링크 복사
+                    </button>
+                </div>
+            </div>
+
+            <!-- 다시하기 -->
+            <div class="retry-section">
+                <a href="/input" class="retry-button">다시 분석하기</a>
+            </div>
+
+            <!-- 광고 영역 (추후) -->
+            <div class="ad-placeholder">
+                <!-- Google AdSense 코드 삽입 위치 -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="copyright">© 2024-2025 찬공랩</p>
+        </footer>
+    </div>
+
+    <script>
+        // 카카오 SDK 초기화 (추후 키 발급 후 변경)
+        // Kakao.init('YOUR_KAKAO_JAVASCRIPT_KEY');
+
+        function shareKakao() {
+            // 카카오 키 설정 후 활성화
+            alert('카카오톡 공유 기능은 준비 중입니다.');
+            /*
+            Kakao.Share.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: '{{ result.share.title }}',
+                    description: '{{ result.share.description }}',
+                    imageUrl: 'https://changong.store/static/images/og-image.png',
+                    link: {
+                        mobileWebUrl: 'https://changong.store',
+                        webUrl: 'https://changong.store'
+                    }
+                },
+                buttons: [{
+                    title: '나도 분석받기',
+                    link: {
+                        mobileWebUrl: 'https://changong.store',
+                        webUrl: 'https://changong.store'
+                    }
+                }]
+            });
+            */
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.origin).then(() => {
+                alert('링크가 복사되었습니다!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = window.location.origin;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('링크가 복사되었습니다!');
+            });
+        }
+    </script>
+</body>
+</html>
