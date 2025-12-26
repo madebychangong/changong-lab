@@ -102,29 +102,13 @@ def test_db():
         }), 500
 
     try:
-        # 테스트 데이터 삽입
-        test_id = generate_result_id()
-        test_data = {
-            'result': {'test': True, 'message': 'DB 연결 테스트'},
-            'product_type': 'test'
-        }
-
-        supabase.table('pay_orders').insert({
-            'id': test_id,
-            'data': test_data,
-            'payment_key': 'test_payment'
-        }).execute()
-
-        # 삽입된 데이터 조회
-        response = supabase.table('pay_orders').select('*').eq('id', test_id).execute()
-
-        # 테스트 데이터 삭제
-        supabase.table('pay_orders').delete().eq('id', test_id).execute()
+        # 간단한 조회 테스트만
+        response = supabase.table('pay_orders').select('*').limit(1).execute()
 
         return jsonify({
             'status': 'success',
-            'message': 'DB 연결 성공! 데이터 삽입/조회/삭제 모두 정상',
-            'test_id': test_id
+            'message': 'DB 연결 성공!',
+            'row_count': len(response.data)
         })
 
     except Exception as e:
