@@ -1202,16 +1202,38 @@ select:hover, input:hover {
 /* Footer */
 .footer {
     text-align: center;
-    padding: 32px 0;
+    padding: 40px 0 32px;
     border-top: 1px solid var(--border);
     margin-top: 40px;
+    background: linear-gradient(180deg, transparent 0%, rgba(139, 92, 246, 0.03) 100%);
 }
 
 .footer-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+}
+
+.footer-brand {
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.5px;
+}
+
+.footer-credit {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.3px;
+}
+
+.credit-name {
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .footer-logo {
@@ -1223,8 +1245,19 @@ select:hover, input:hover {
 }
 
 .copyright {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    opacity: 0.7;
+}
+
+/* Premium Notice */
+.premium-notice {
     font-size: 0.75rem;
     color: var(--text-muted);
+    text-align: center;
+    margin-top: 16px;
+    opacity: 0.8;
 }
 
 /* Error Page */
