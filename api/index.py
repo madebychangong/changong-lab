@@ -92,16 +92,27 @@ def api_analyze():
 @app.route('/api/test-db')
 def test_db():
     """DB 연결 테스트"""
-    from utils.db import get_supabase, generate_result_id
+    import os
 
-    supabase = get_supabase()
-    if not supabase:
+    # 환경변수 확인
+    url = os.environ.get('SUPABASE_URL', '')
+    key = os.environ.get('SUPABASE_KEY', '')
+
+    # 환경변수가 있는지 먼저 체크
+    if not url or not key:
         return jsonify({
             'status': 'failed',
-            'error': 'Supabase 연결 실패 (환경변수 확인 필요)'
+            'error': '환경변수 없음',
+            'url_exists': bool(url),
+            'key_exists': bool(key),
+            'url_preview': url[:30] + '...' if url else 'empty',
+            'all_env_keys': [k for k in os.environ.keys() if 'SUPA' in k.upper()]
         }), 500
 
     try:
+        from supabase import create_client
+        supabase = create_client(url, key)
+
         # 간단한 조회 테스트만
         response = supabase.table('pay_orders').select('*').limit(1).execute()
 
