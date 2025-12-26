@@ -132,36 +132,20 @@
             <div class="premium-section">
                 <p class="premium-title">더 자세한 분석이 필요하다면</p>
                 <div class="premium-cards">
-                    <div class="premium-card" onclick="showPayment('yearly')">
+                    <a href="https://toon.at/donate/mzsaju" target="_blank" class="premium-card">
                         <div class="premium-card-info">
                             <span class="premium-card-title">2026년 상세 운세</span>
                             <span class="premium-card-desc">월별 운세 + 주의 시기 + 행운의 날</span>
                         </div>
                         <span class="premium-card-price">500원</span>
-                    </div>
-                    <div class="premium-card" onclick="showPayment('compatibility')">
+                    </a>
+                    <a href="https://toon.at/donate/mzsaju" target="_blank" class="premium-card">
                         <div class="premium-card-info">
                             <span class="premium-card-title">궁합 분석</span>
                             <span class="premium-card-desc">두 사람의 사주 궁합 심층 분석</span>
                         </div>
                         <span class="premium-card-price">990원</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 카카오페이 결제 모달 -->
-            <div id="paymentModal" class="payment-modal" style="display: none;">
-                <div class="payment-modal-content">
-                    <button class="payment-close" onclick="closePayment()">&times;</button>
-                    <h3 id="paymentTitle">카카오페이로 결제</h3>
-                    <p id="paymentDesc">아래 QR코드를 스캔하거나 버튼을 눌러주세요</p>
-                    <p id="paymentAmount" class="payment-amount"></p>
-                    <img src="https://qr.kakaopay.com/Ej7tVCQ8E" alt="카카오페이 QR" class="payment-qr">
-                    <a href="https://qr.kakaopay.com/Ej7tVCQ8E" target="_blank" class="payment-btn">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoPay_logo.svg" alt="카카오페이" style="height: 20px; margin-right: 8px;">
-                        카카오페이로 송금하기
                     </a>
-                    <p class="payment-notice">결제 후 카톡으로 결제내역 캡처를 보내주시면<br>상세 분석 결과를 보내드립니다!</p>
                 </div>
             </div>
         </section>
@@ -170,89 +154,6 @@
             <p class="copyright">© 2025 MZ사주</p>
         </footer>
     </div>
-
-    <style>
-        /* 결제 모달 스타일 */
-        .payment-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .payment-modal-content {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 350px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .payment-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: #888;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .payment-modal h3 {
-            color: #fff;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-        .payment-modal p {
-            color: #aaa;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-        .payment-amount {
-            color: #ffd700 !important;
-            font-size: 1.5rem !important;
-            font-weight: 700;
-            margin: 15px 0 !important;
-        }
-        .payment-qr {
-            width: 180px;
-            height: 180px;
-            border-radius: 12px;
-            margin: 15px 0;
-            background: #fff;
-            padding: 10px;
-        }
-        .payment-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fee500;
-            color: #000;
-            padding: 14px 24px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 15px 0;
-            transition: transform 0.2s;
-        }
-        .payment-btn:hover {
-            transform: scale(1.02);
-        }
-        .payment-notice {
-            color: #888 !important;
-            font-size: 0.8rem !important;
-            line-height: 1.5;
-        }
-    </style>
 
     <script>
         function copyLink() {
@@ -268,33 +169,6 @@
                 alert('링크가 복사되었습니다!');
             });
         }
-
-        function showPayment(type) {
-            const modal = document.getElementById('paymentModal');
-            const title = document.getElementById('paymentTitle');
-            const amount = document.getElementById('paymentAmount');
-
-            if (type === 'yearly') {
-                title.textContent = '2026년 상세 운세';
-                amount.textContent = '500원';
-            } else {
-                title.textContent = '궁합 분석';
-                amount.textContent = '990원';
-            }
-
-            modal.style.display = 'flex';
-        }
-
-        function closePayment() {
-            document.getElementById('paymentModal').style.display = 'none';
-        }
-
-        // 모달 바깥 클릭시 닫기
-        document.getElementById('paymentModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePayment();
-            }
-        });
     </script>
 </body>
 </html>
